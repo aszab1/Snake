@@ -1,8 +1,12 @@
 // * Elements
 // Start button DOM element: startButton (.start class)
+const startBtn = document.getElementById('start')
 // Grid (const grid = document.queryselector(.grid))
+const grid = document.querySelector('.grid')
 // Cells (const cells [])
+const cells = []
 // Initial speed of snake 
+
 // direction
 // potentially - score display (.score class)
 // potentially - high-score (class)
@@ -18,9 +22,25 @@
 // * Grid 
 // Making the grid in JS 
 // width (this will be both the width and the height const width = )
+const width = 20
 // cellcount - represents the number of cells in the grid (const cellCount = width * width)
+const cellCount = width * width
 // function to create all the grid cells and append them to the existing grid 
-// set width and height of the div cells
+function createGrid(){
+  for (let i = 0; i < cellCount; i++) {
+    const cell = document.createElement('div')
+    cell.innerText = i
+    cell.id = i 
+    cell.classList.add('cell')
+    // set width and height of the div cells
+    cell.style.width = `${100 / width}%`
+    cell.style.height = `${100 / width}%`
+    
+    grid.append(cell)
+    cells.push(cell)
+  }
+}
+createGrid()
 
 // Function to update the grid with the starting snake and food position
 // add snake (poss .forEach)
