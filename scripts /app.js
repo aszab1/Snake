@@ -4,28 +4,25 @@ const startBtn = document.getElementById('start')
 // Grid (const grid = document.queryselector(.grid))
 const grid = document.querySelector('.grid')
 // score display (.score class)
-const scoreSpan = document.querySelector('.score')
+const scoreSpan = document.getElementById('scoreSpan')
 // Cells (const cells [])
 const cells = []
-// Initial speed of snake 
-
-// direction
-
-
 
 // potentially - high-score (class)
 
 // * Variables
 // snake  / initial position
-const startSnakePos = 312
-let startFoodPos = 45
+const startSnakePos = 312 
+let currentSnakePos = startSnakePos
 // food  /intial position 
-let foodIndex = 10
+let startFoodPos = 45
+// direction start on the right
+let direction = 1
 // gameInterval
-let gameInterval
+let gameInterval = 0
 // Is game active? - boolean (let gameActive - false)
 let gameActive = false
-// potentially Start score at 0
+// Start score at 0
 let score = 0
 
 // * Grid 
@@ -38,14 +35,13 @@ const cellCount = width * width
 function createGrid(){
   for (let i = 0; i < cellCount; i++) {
     const cell = document.createElement('div')
-    /* cell.innerText = i */
     cell.id = i
     cell.classList.add('cell')
     // set width and height of the div cells
     cell.style.width = `${100 / width}%`
     cell.style.height = `${100 / width}%`
     
-    grid.append(cell)
+    grid.appendChild(cell)
     cells.push(cell)
   }
   addSnake(startSnakePos)
@@ -56,44 +52,99 @@ createGrid()
 
 
 // Function to update the grid with the starting snake and food position
-// add snake (poss .forEach)
+// add snake 
 function addSnake(position){
   cells[position].classList.add('snake')
 }
-// food (poss const = foodIdx)
+// food 
 function addFood(position){
   cells[position].classList.add('food')
 }
 
+function moveSnake() { 
+  if (!gameActive) return
 
-// * Executions
-// Click start button to start the game;  
-// check if gamesactive - reset if not,  
-// set game interval to inital speed 
-// function to move the snake - const head  /  set direction up, down, left, right
-// if head is touching food - push food to head poss if/else / if checkCollision()  endGame /reset
+  //snake collision 
+  const head = currentSnakePos + direction 
+  if (head < 0 || head >= cellCount || 
+  //right border collision
+  (direction === 1 && head % width === 0) || 
+  //left border collision
+  (direction === -1 && head % width === width - 1) || 
+  cells[head].classList.contains('snake')) {
+    endGame() 
+    return 
+  }
+  
+  if (cells[head].classList.contains('food')) { 
+    score++ 
+    scoreSpan.textContent = score 
+    cells[head].classList.remove('food') 
+    addSnake(head) 
+    addFood(getrandomFoodPosition())
+  
+    clearInterval(gameInterval)
+    gameInterval = setInterval(moveSnake, 200 - (score * 10))
+  } else { 
+    addSnake(head) 
+    removeSnakeTail() 
+  }
+  
+  currentSnakePos = head 
+}
+// remove snake tail after its moved position   
+function removeSnakeTail() {
+  cells[currentSnakePos].classList.remove('snake')
+}
 
-// function to generate random food positions (with Math.floor(Math.random))
-// function , let foodposition = ,
+function getrandomFoodPosition() {
+  let foodPosition 
+  while (foodPosition == null || cells[foodPosition].classList.contains('snake')) {
+    foodPosition = Math.floor(Math.random() * cellCount)
+  } 
+  return foodPosition
+}
 
-// function to check for collision (wall and self)
-// function checkCollision ()
+function endGame() {
+  gameActive = false
+  clearInterval(gameInterval)
+  alert(`Game over! Final score: ${score}`)
 
-// function to end the game 
-// function endGame () clearInterval=gameinterval
-// alert Game over (and potentially score)
+  currentSnakePos = startSnakePos
+  /* startfoodPos = 45*/
+  direction = 1
+  score = 0
+  scoreSpan.textContent = 0
 
-// fuction to reset game 
-// snake, food position, direction, displayGrid ()
-//  potentially score / update high-score 
+  cells.forEach((cell) => cell.classList.remove('snake', 'food'))
+  addSnake(currentSnakePos)
+  addFood(startFoodPos)
+}
+
+function changeDirection(evt) {
+  const key = evt.code
+  if (key === 'ArrowUp' && direction !== width) {
+    direction = -width
+  } else if (key === 'ArrowDown' && direction !== -width) {
+    direction = width
+  } else if (key === 'ArrowLeft' && direction !== 1) {
+    direction = -1
+  } else if (key === 'ArrowRight' && direction !== -1) {
+    direction = 1
+  }
+}
+
+
+startBtn.addEventListener('click', () => {
+  if (!gameActive) {
+    gameActive = true
+    gameInterval = setInterval(moveSnake, 200)
+  }
+})
 
 
 
-
-//  * EventListeners
-// Start button: click --> startGame function
-// keyboard input - (document.addEvenlistener)
-
+document.addEventListener('keydown', changeDirection)
 
 
 // * Page Load 
