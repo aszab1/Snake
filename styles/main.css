@@ -15,15 +15,15 @@ header{
 main {
   display: flex;
   flex-wrap: wrap;
-  width: 500px;
+  width: 400px;
   margin: 0 auto;
-  height: 500px;
+  height: 400px;
   justify-content: space-between;
 }
 
 .grid {
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 400px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -43,3 +43,4 @@ main {
 .grid div.food {
   background-color: red;
 }
+

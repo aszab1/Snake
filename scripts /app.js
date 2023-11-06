@@ -12,8 +12,8 @@ const cells = []
 
 // * Variables
 // snake  / initial position
-const startSnakePos = 312 
-let currentSnakePos = startSnakePos
+const startSnakePos = 189 
+let currentSnakePos = [startSnakePos]
 // food  /intial position 
 let startFoodPos = 45
 // direction start on the right
@@ -25,10 +25,12 @@ let gameActive = false
 // Start score at 0
 let score = 0
 
+
+
 // * Grid 
 // Making the grid in JS 
 // width (this will be both the width and the height const width = )
-const width = 25
+const width = 20
 // cellcount - represents the number of cells in the grid (const cellCount = width * width)
 const cellCount = width * width
 // function to create all the grid cells and append them to the existing grid 
@@ -60,12 +62,13 @@ function addSnake(position){
 function addFood(position){
   cells[position].classList.add('food')
 }
-
+//function to move snake
 function moveSnake() { 
   if (!gameActive) return
 
   //snake collision 
-  const head = currentSnakePos + direction 
+  const head = currentSnakePos[currentSnakePos.length - 1] + direction 
+
   if (head < 0 || head >= cellCount || 
   //right border collision
   (direction === 1 && head % width === 0) || 
@@ -75,33 +78,32 @@ function moveSnake() {
     endGame() 
     return 
   }
+  currentSnakePos.push(head)
   
   if (cells[head].classList.contains('food')) { 
     score++ 
     scoreSpan.textContent = score 
     cells[head].classList.remove('food') 
-    addSnake(head) 
     addFood(getrandomFoodPosition())
-  
+    //increase speed by 5ms after each food eaten starting at 200
     clearInterval(gameInterval)
-    gameInterval = setInterval(moveSnake, 200 - (score * 10))
-  } else { 
-    addSnake(head) 
-    removeSnakeTail() 
+    gameInterval = setInterval(moveSnake, 200 - (score * 5))
+  } else {
+    const tail = currentSnakePos.shift()
+    cells[tail].classList.remove('snake')
   }
-  
-  currentSnakePos = head 
+  cells[head].classList.add('snake')
 }
-// remove snake tail after its moved position   
-function removeSnakeTail() {
-  cells[currentSnakePos].classList.remove('snake')
-}
+console.log(moveSnake)
 
 function getrandomFoodPosition() {
   let foodPosition 
-  while (foodPosition == null || cells[foodPosition].classList.contains('snake')) {
+  do {
     foodPosition = Math.floor(Math.random() * cellCount)
-  } 
+  } while (
+    currentSnakePos.includes(foodPosition) ||
+    cells[foodPosition].classList.contains('food')) 
+
   return foodPosition
 }
 
@@ -111,7 +113,6 @@ function endGame() {
   alert(`Game over! Final score: ${score}`)
 
   currentSnakePos = startSnakePos
-  /* startfoodPos = 45*/
   direction = 1
   score = 0
   scoreSpan.textContent = 0
