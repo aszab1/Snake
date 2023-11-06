@@ -22,11 +22,24 @@ main {
 }
 
 .grid {
-  width: 600px;
+  width: 500px;
+  height: 500px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .grid div {
   border: .5px solid rgb(229, 226, 226); 
   display: inline-block;
-  aspect-ratio: 1;
+  aspect-ratio: 2;
+}
+
+.grid div.snake {
+  background-image: url('../assets/snake\ head.jpeg');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.food {
+  background-color: brown;
 }

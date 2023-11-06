@@ -3,34 +3,42 @@
 const startBtn = document.getElementById('start')
 // Grid (const grid = document.queryselector(.grid))
 const grid = document.querySelector('.grid')
+// score display (.score class)
+const scoreSpan = document.querySelector('.score')
 // Cells (const cells [])
 const cells = []
 // Initial speed of snake 
 
 // direction
-// potentially - score display (.score class)
+
+
+
 // potentially - high-score (class)
 
 // * Variables
 // snake  / initial position
+const startPos = 312
 // food  /intial position 
+let foodIndex = 10
 // gameInterval
+let gameInterval
 // Is game active? - boolean (let gameActive - false)
+let gameActive = false
 // potentially Start score at 0
-// 
+let score = 0
 
 // * Grid 
 // Making the grid in JS 
 // width (this will be both the width and the height const width = )
-const width = 20
+const width = 25
 // cellcount - represents the number of cells in the grid (const cellCount = width * width)
 const cellCount = width * width
 // function to create all the grid cells and append them to the existing grid 
 function createGrid(){
   for (let i = 0; i < cellCount; i++) {
     const cell = document.createElement('div')
-    cell.innerText = i
-    cell.id = i 
+    /* cell.innerText = i */
+    cell.id = i
     cell.classList.add('cell')
     // set width and height of the div cells
     cell.style.width = `${100 / width}%`
@@ -39,12 +47,20 @@ function createGrid(){
     grid.append(cell)
     cells.push(cell)
   }
+  addSnake(startPos)
 }
 createGrid()
 
+
+
 // Function to update the grid with the starting snake and food position
 // add snake (poss .forEach)
+function addSnake(position){
+  cells[position].classList.add('snake')
+}
 // food (poss const = foodIdx)
+
+
 
 // * Executions
 // Click start button to start the game;  
