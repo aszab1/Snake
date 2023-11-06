@@ -35,9 +35,10 @@ main {
 }
 
 .grid div.snake {
-  background-image: url('../assets/snake\ head.jpeg');
+  background-image: url('../assets/snake.jpeg');
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
+  background-position: center;
 }
 
 .grid div.food {
