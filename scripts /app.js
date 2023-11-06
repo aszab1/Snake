@@ -17,7 +17,8 @@ const cells = []
 
 // * Variables
 // snake  / initial position
-const startPos = 312
+const startSnakePos = 312
+let startFoodPos = 45
 // food  /intial position 
 let foodIndex = 10
 // gameInterval
@@ -47,7 +48,8 @@ function createGrid(){
     grid.append(cell)
     cells.push(cell)
   }
-  addSnake(startPos)
+  addSnake(startSnakePos)
+  addFood(startFoodPos)
 }
 createGrid()
 
@@ -59,7 +61,9 @@ function addSnake(position){
   cells[position].classList.add('snake')
 }
 // food (poss const = foodIdx)
-
+function addFood(position){
+  cells[position].classList.add('food')
+}
 
 
 // * Executions

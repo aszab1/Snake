@@ -40,6 +40,6 @@ main {
   background-size: contain;
 }
 
-.food {
-  background-color: brown;
+.grid div.food {
+  background-color: red;
 }
