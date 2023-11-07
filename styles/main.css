@@ -26,15 +26,15 @@ header{
 main {
   display: flex;
   flex-wrap: wrap;
-  width: 400px;
+  width: 500px;
   margin: 0 auto;
-  height: 400px;
+  height: 500px;
   justify-content: space-between;
 }
 
 .grid {
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -42,7 +42,7 @@ main {
 .grid div {
   border: .5px solid rgb(229, 226, 226); 
   display: inline-block;
-  aspect-ratio: 2;
+  aspect-ratio: 1;
 }
 
 .grid div.snake {
@@ -53,7 +53,10 @@ main {
 }
 
 .grid div.food {
-  background-color: red;
+  background-image: url('../assets/frog-cartoon.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 
