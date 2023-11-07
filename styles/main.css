@@ -20,7 +20,7 @@ body{
 
 header{
   text-align: center;
-  margin: 6em;
+  margin: 5em;
 }
 
 main {
@@ -30,6 +30,13 @@ main {
   margin: 0 auto;
   height: 500px;
   justify-content: space-between;
+}
+
+#grid-header {
+  width: 500px;
+  height: 50px;
+  margin: 0 auto;
+  background-color: rgb(103, 61, 61);
 }
 
 .grid {
@@ -43,6 +50,7 @@ main {
   border: .5px solid rgb(229, 226, 226); 
   display: inline-block;
   aspect-ratio: 1;
+  background-color: rgb(173, 216, 230, 0.6)
 }
 
 .grid div.snake {
@@ -59,4 +67,10 @@ main {
   background-repeat: no-repeat;
 }
 
-
+.score {
+  text-align: center;
+  position: relative;
+  float: left;
+  padding-top: 15px;
+  padding-left: 5px;
+}
