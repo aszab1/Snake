@@ -1,15 +1,26 @@
 * {
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:'Kalam', cursive;
   font-size: 16px;
 }
 
+h1 {
+font-size: 2em;
+}
+
+
 body{
   margin: 0;
+  background-image: url('../assets/forest\ night.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
 }
+
 header{
   text-align: center;
-  margin: 3em;
+  margin: 6em;
 }
 
 main {
@@ -44,4 +55,5 @@ main {
 .grid div.food {
   background-color: red;
 }
+
 
