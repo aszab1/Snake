@@ -25,9 +25,6 @@ let gameInterval = 0
 let gameActive = false
 // Start score at 0
 let score = 0
-//added color
-// let colorIdx = 0 
-
 
 
 // * Grid 
@@ -68,13 +65,7 @@ function addSnake(headPos){
     }
   }) 
 }
-//added 
-function updateBodyColors() {
-  for (let i = 1; i < currentSnakePos.length; i++) {
-    cells[currentSnakePos[i]].style.backgroundColor = colors[colorIdx]
-    colorIdx = (colorIdx + 1) % colors.length 
-  }
-}
+
 // food 
 function addFood(position){
   cells[position].classList.add('food')
@@ -127,8 +118,6 @@ function moveSnake() {
   // add the snake class to the new head position 
   addSnake(head)
   
-  //added
-  // updateBodyColors()
 }
 
 
