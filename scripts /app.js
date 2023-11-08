@@ -10,6 +10,7 @@ const cells = []
 const colors = ['yellow', 'red'] 
 
 // potentially - high-score (class)
+const highScoreDisplay = document.getElementById('highScore')
 
 // * Variables
 // snake  / initial position
@@ -112,6 +113,12 @@ function moveSnake() {
     score++ 
     // update scoreSpan
     scoreSpan.textContent = score 
+    //high-score 
+    if (parseInt(localStorage.getItem('highScore')) < score)
+      localStorage.setItem('highScore', score)
+    highScoreDisplay.innerText = score
+
+
     // remove food class from cell
     cells[head].classList.remove('food') 
     //call addFood function to add new food using the getrandomFoodposition
@@ -197,3 +204,4 @@ document.addEventListener('keydown', changeDirection)
 
 // * Page Load 
 createGrid()
+highScoreDisplay.innerText = localStorage.getItem('highScore')
