@@ -7,6 +7,7 @@ const grid = document.querySelector('.grid')
 const scoreSpan = document.getElementById('scoreSpan')
 // Cells (const cells [])
 const cells = []
+const colors = ['yellow', 'red'] 
 
 // potentially - high-score (class)
 
@@ -15,7 +16,7 @@ const cells = []
 const startSnakePos = 189 
 let currentSnakePos = [startSnakePos]
 // food  /intial position 
-let startFoodPos = 45
+const startFoodPos = 45
 // direction start on the right
 let direction = 1
 // gameInterval
@@ -24,6 +25,8 @@ let gameInterval = 0
 let gameActive = false
 // Start score at 0
 let score = 0
+//added color
+// let colorIdx = 0 
 
 
 
@@ -55,8 +58,22 @@ createGrid()
 
 // Function to update the grid with the starting snake and food position
 // add snake 
-function addSnake(position){
-  cells[position].classList.add('snake')
+function addSnake(headPos){
+  cells[headPos].classList.add('snake')
+  currentSnakePos.forEach(pos => {
+    if (headPos !== pos) {
+      cells[pos].classList.remove('snake')
+      cells[pos].classList.add('yellow')
+
+    }
+  }) 
+}
+//added 
+function updateBodyColors() {
+  for (let i = 1; i < currentSnakePos.length; i++) {
+    cells[currentSnakePos[i]].style.backgroundColor = colors[colorIdx]
+    colorIdx = (colorIdx + 1) % colors.length 
+  }
 }
 // food 
 function addFood(position){
@@ -95,7 +112,7 @@ function moveSnake() {
     scoreSpan.textContent = score 
     // remove food class from cell
     cells[head].classList.remove('food') 
-    //calls addFood function to add new food using the getrandomFoodposition
+    //call addFood function to add new food using the getrandomFoodposition
     addFood(getRandomFoodPosition())
     //clear existing interval time
     clearInterval(gameInterval)
@@ -105,10 +122,13 @@ function moveSnake() {
     // remove tail position from currentSnakePos array and assign it to tail
     const tail = currentSnakePos.shift()
     // remove the snake class from the cell at the previous tail pos
-    cells[tail].classList.remove('snake')
+    cells[tail].classList.remove('snake', 'yellow')
   }
   // add the snake class to the new head position 
-  cells[head].classList.add('snake')
+  addSnake(head)
+  
+  //added
+  // updateBodyColors()
 }
 
 
@@ -130,7 +150,7 @@ function getRandomFoodPosition() {
 function endGame() {
   gameActive = false
   clearInterval(gameInterval)
-  alert(`Game over! Final score: ${score}`)
+  alert(`Game over!!\nFinal score: ${score}`)
 
   // resetting the snake's inital position, direction, score 
   currentSnakePos = startSnakePos
@@ -139,7 +159,11 @@ function endGame() {
   scoreSpan.textContent = 0
 
   //removing snake and food classes from all cells 
-  cells.forEach((cell) => cell.classList.remove('snake', 'food'))
+  cells.forEach((cell) => {
+    cell.classList.remove('snake', 'food')
+    //added
+    cell.style.backgroundColor = ''
+  })
   addSnake(currentSnakePos)
   addFood(startFoodPos)
 }

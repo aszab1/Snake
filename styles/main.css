@@ -74,3 +74,12 @@ main {
   padding-top: 15px;
   padding-left: 5px;
 }
+
+.yellow {
+  background-color: yellow;
+  background-image: url('../assets/frog-cartoon.jpeg');
+}
+
+.red {
+  background-color: red;
+}
