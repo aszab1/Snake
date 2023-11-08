@@ -25,6 +25,8 @@ let gameInterval = 0
 let gameActive = false
 // Start score at 0
 let score = 0
+let color = 0
+let colorIdx = 0
 
 
 // * Grid 
@@ -44,27 +46,33 @@ function createGrid(){
     cell.style.width = `${100 / width}%`
     cell.style.height = `${100 / width}%`
     
-    grid.appendChild(cell)
+    grid.append(cell)
     cells.push(cell)
   }
   addSnake(startSnakePos)
   addFood(startFoodPos)
 }
-createGrid()
+
 
 
 // Function to update the grid with the starting snake and food position
 // add snake 
 function addSnake(headPos){
   cells[headPos].classList.add('snake')
-  currentSnakePos.forEach(pos => {
+  currentSnakePos.forEach((pos, index) => {
     if (headPos !== pos) {
       cells[pos].classList.remove('snake')
-      cells[pos].classList.add('yellow')
-
+      if (index % 2 === 0) {
+        color = cells[pos].classList.add('yellow')
+      } else { 
+        color = colors[colorIdx % colors.length]
+        //cells[pos].classList.add('red')
+      }
+      cells[pos].classList.add(color)
     }
-  }) 
+  })
 }
+
 
 // food 
 function addFood(position){
@@ -88,7 +96,8 @@ function moveSnake() {
   //left border collision
   (direction === -1 && head % width === width - 1) || 
   // collides with own body
-  cells[head].classList.contains('snake')) {
+  currentSnakePos.includes(head) ) {
+  
     endGame() 
     return 
   }
@@ -97,7 +106,9 @@ function moveSnake() {
   
   //checks if cell and  head position contains food class. if it does, snake ate food
   if (cells[head].classList.contains('food')) { 
-    // update score by 1
+    // update color
+    colorIdx++
+    // update score
     score++ 
     // update scoreSpan
     scoreSpan.textContent = score 
@@ -113,7 +124,7 @@ function moveSnake() {
     // remove tail position from currentSnakePos array and assign it to tail
     const tail = currentSnakePos.shift()
     // remove the snake class from the cell at the previous tail pos
-    cells[tail].classList.remove('snake', 'yellow')
+    cells[tail].classList.remove('snake', 'yellow', 'red')
   }
   // add the snake class to the new head position 
   addSnake(head)
@@ -149,9 +160,7 @@ function endGame() {
 
   //removing snake and food classes from all cells 
   cells.forEach((cell) => {
-    cell.classList.remove('snake', 'food')
-    //added
-    cell.style.backgroundColor = ''
+    cell.classList.remove('snake', 'food', 'yellow', 'red')
   })
   addSnake(currentSnakePos)
   addFood(startFoodPos)
@@ -187,4 +196,4 @@ document.addEventListener('keydown', changeDirection)
 
 
 // * Page Load 
-//createGrid()
+createGrid()
