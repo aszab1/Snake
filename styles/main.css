@@ -16,6 +16,7 @@ body{
   background-position: center;
   background-size: cover;
   height: 100vh;
+  /* background-attachment: fixed; */
 }
 
 header{
@@ -40,17 +41,18 @@ main {
 }
 
 .grid {
-  width: 600px;
-  height: 600px;
+  min-width: 600px;
+  min-height: 600px;
   display: flex;
   flex-wrap: wrap;
+  border: 5px solid rgb(103, 61, 61)
 }
 
 .grid div {
   border: .5px solid rgb(229, 226, 226); 
   display: inline-block;
   aspect-ratio: 1;
-  background-color: rgb(173, 216, 230, 0.6)
+  background-color: rgb(173, 216, 230, 0.7);
 }
 
 .grid div.snake {

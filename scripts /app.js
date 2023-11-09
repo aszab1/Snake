@@ -59,13 +59,19 @@ function createGrid(){
 // Function to update the grid with the starting snake and food position
 // add snake 
 function addSnake(headPos){
+  //add snake to the index of headPos in cells array. 
   cells[headPos].classList.add('snake')
+  // forEach loop to loop through each item in the currentSnakePos
   currentSnakePos.forEach((pos, index) => {
+    //not to modify the head
     if (headPos !== pos) {
+      //remove snake class from cell
       cells[pos].classList.remove('snake')
+      // if index even add yellow 
       if (index % 2 === 0) {
         color = cells[pos].classList.add('yellow')
       } else { 
+        //if odd add the next color from the colours array
         color = colors[colorIdx % colors.length]
         //cells[pos].classList.add('red')
       }
@@ -127,6 +133,7 @@ function moveSnake() {
     clearInterval(gameInterval)
     // increase speed by 5ms after each food eaten starting at 200
     gameInterval = setInterval(moveSnake, 200 - (score * 5))
+    console.log(gameInterval)
   } else {
     // remove tail position from currentSnakePos array and assign it to tail
     const tail = currentSnakePos.shift()
