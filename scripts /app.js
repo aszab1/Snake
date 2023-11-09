@@ -9,8 +9,8 @@ const scoreSpan = document.getElementById('scoreSpan')
 const cells = []
 const colors = ['yellow', 'red'] 
 
-// potentially - high-score (class)
-const highScoreDisplay = document.getElementById('highScore')
+//  high-score
+const highScoreDisplay = document.querySelector('#highScore')
 
 // * Variables
 // snake  / initial position
@@ -54,7 +54,7 @@ function createGrid(){
   addFood(startFoodPos)
 }
 
-
+highScoreDisplay.innerText = highScore()
 
 // Function to update the grid with the starting snake and food position
 // add snake 
@@ -118,12 +118,9 @@ function moveSnake() {
     // update score
     score++ 
     // update scoreSpan
+    // scoreSpan.textContent = score 
+    
     scoreSpan.textContent = score 
-    //high-score 
-    if (parseInt(localStorage.getItem('highScore')) < score)
-      localStorage.setItem('highScore', score)
-    highScoreDisplay.innerText = score
-
 
     // remove food class from cell
     cells[head].classList.remove('food') 
@@ -133,7 +130,7 @@ function moveSnake() {
     clearInterval(gameInterval)
     // increase speed by 5ms after each food eaten starting at 200
     gameInterval = setInterval(moveSnake, 200 - (score * 5))
-    console.log(gameInterval)
+    
   } else {
     // remove tail position from currentSnakePos array and assign it to tail
     const tail = currentSnakePos.shift()
@@ -145,6 +142,10 @@ function moveSnake() {
   
 }
 
+//function for high score
+function highScore () {
+  return parseInt(localStorage.getItem('highScore')) || 0
+}
 
 //function to generate a random food position on the grid
 
@@ -165,9 +166,14 @@ function endGame() {
   gameActive = false
   clearInterval(gameInterval)
   alert(`Game over!!\nFinal score: ${score}`)
+  // update high score 
+  if (score > highScore()) {
+    updateHScore()
+  }
+  highScoreDisplay.innerText = highScore()
 
   // resetting the snake's inital position, direction, score 
-  currentSnakePos = startSnakePos
+  currentSnakePos = [startSnakePos]
   direction = 1
   score = 0
   scoreSpan.textContent = 0
@@ -178,6 +184,10 @@ function endGame() {
   })
   addSnake(currentSnakePos)
   addFood(startFoodPos)
+}
+
+function updateHScore() {
+  localStorage.setItem('highScore', score)
 }
 
 //function for direction 
@@ -211,4 +221,3 @@ document.addEventListener('keydown', changeDirection)
 
 // * Page Load 
 createGrid()
-highScoreDisplay.innerText = localStorage.getItem('highScore')

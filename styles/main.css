@@ -2,6 +2,7 @@
   box-sizing: border-box;
   font-family:'Kalam', cursive;
   font-size: 16px;
+  overflow: hidden;
 }
 
 h1 {
@@ -16,7 +17,6 @@ body{
   background-position: center;
   background-size: cover;
   height: 100vh;
-  /* background-attachment: fixed; */
 }
 
 header{
