@@ -21,7 +21,7 @@ body{
 
 header{
   text-align: center;
-  margin: 4em;
+  margin: 3em;
 }
 
 main {
@@ -99,4 +99,13 @@ main {
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 20%;
+}
+
+#soundOff {
+  display: none;
+}
+
+button {
+  margin: 10px;
+  background-color: beige;
 }

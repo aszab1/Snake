@@ -11,6 +11,12 @@ const colors = ['yellow', 'red']
 
 //  high-score
 const highScoreDisplay = document.querySelector('#highScore')
+// sound on button
+const btn = document.getElementById('soundOn')
+// sound off
+const offBtn = document.getElementById('soundOff')
+// audio
+const forestSound = document.getElementById('audio1')
 
 // * Variables
 // snake  / initial position
@@ -28,6 +34,11 @@ let gameActive = false
 let score = 0
 let color = 0
 let colorIdx = 0
+//sound
+let soundPlay = false
+
+forestSound.volume = 0.5
+
 
 
 // * Grid 
@@ -205,6 +216,25 @@ function changeDirection(evt) {
   }
 }
 
+// function to control on/off sound button with audio
+
+function toggleSound() {
+  // toggle state
+  soundPlay = !soundPlay
+
+  if (soundPlay) {
+    forestSound.play()
+    btn.style.display = 'none'
+    offBtn.style.display = 'inline-block'
+
+  } else {
+    forestSound.pause()
+    btn.style.display = 'inline-block'
+    offBtn.style.display = 'none'
+  }
+}
+
+
 // * Event Listeners 
 
 startBtn.addEventListener('click', () => {
@@ -214,9 +244,15 @@ startBtn.addEventListener('click', () => {
   }
 })
 
+//sounds
 
+btn.addEventListener('click', toggleSound)
+offBtn.addEventListener('click', toggleSound)
+
+//keydown
 
 document.addEventListener('keydown', changeDirection)
+
 
 
 // * Page Load 
