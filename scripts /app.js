@@ -73,7 +73,6 @@ function addSnake(headPos){
       } else { 
         //if odd add the next color from the colours array
         color = colors[colorIdx % colors.length]
-        //cells[pos].classList.add('red')
       }
       cells[pos].classList.add(color)
     }
@@ -113,8 +112,6 @@ function moveSnake() {
   
   //checks if cell and  head position contains food class. if it does, snake ate food
   if (cells[head].classList.contains('food')) { 
-    // update color
-    colorIdx++
     // update score
     score++ 
     // update scoreSpan
@@ -126,6 +123,8 @@ function moveSnake() {
     cells[head].classList.remove('food') 
     //call addFood function to add new food using the getrandomFoodposition
     addFood(getRandomFoodPosition())
+    // update color
+    colorIdx++
     //clear existing interval time
     clearInterval(gameInterval)
     // increase speed by 5ms after each food eaten starting at 200
@@ -177,9 +176,10 @@ function endGame() {
   direction = 1
   score = 0
   scoreSpan.textContent = 0
+  colorIdx = 0
 
   //removing snake and food classes from all cells 
-  cells.forEach((cell) => {
+  cells.forEach(cell => {
     cell.classList.remove('snake', 'food', 'yellow', 'red')
   })
   addSnake(currentSnakePos)
