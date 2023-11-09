@@ -3,6 +3,7 @@
   font-family:'Kalam', cursive;
   font-size: 16px;
   overflow: hidden;
+  height: auto;
 }
 
 h1 {
@@ -16,7 +17,6 @@ body{
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 100vh;
 }
 
 header{
@@ -41,8 +41,8 @@ main {
 }
 
 .grid {
-  min-width: 600px;
-  min-height: 600px;
+  width: 600px;
+  height: 600px;
   display: flex;
   flex-wrap: wrap;
   border: 5px solid rgb(103, 61, 61)
