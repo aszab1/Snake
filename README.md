@@ -1,4 +1,8 @@
-# ReadMe The Rainforest Snake project
+
+![image 90](https://github.com/aszab1/Snake/assets/145586216/25d56a9c-89ad-4963-b6db-70213061dea6)
+
+
+# ReadMe - The Rainforest Snake
 
 **Description**
 
