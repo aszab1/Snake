@@ -1,5 +1,5 @@
 
-![image 90](https://github.com/aszab1/Snake/assets/145586216/25d56a9c-89ad-4963-b6db-70213061dea6)
+![image 91](https://github.com/aszab1/Snake/assets/145586216/22e0aae5-e3e4-448f-9c27-39cd0c7577b6)
 
 
 # ReadMe - The Rainforest Snake
